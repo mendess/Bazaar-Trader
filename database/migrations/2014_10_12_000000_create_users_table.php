@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('city')->default('conad da dona');
             $table->string('zip')->default('conad da dona');
             $table->string('country')->default('conad da dona');
-            $table->float('lat', 10, 6)->default(123.233);
-            $table->float('lng', 10, 6)->default(2233.3);
+            $table->float('lat', 10, 6)->nullable();
+            $table->float('lng', 10, 6)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
