@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class SellsController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class SellsController extends Controller
      */
     public function index()
     {
-        //
+      $cards = Auth::user()->cards()->where('intent', 'sell')->get();
+      return view('selling', compact('cards'));
     }
 
     /**
@@ -35,6 +36,27 @@ class SellsController extends Controller
     public function store(Request $request)
     {
         //
+      $user = Auth::user();
+
+      $validator = Validator::make($request->all(),[
+        'intent' => 'required',
+        'copies' => 'required'
+      ]);
+
+      if($validator->fail()){
+        redirect('/')->withErrors($validator);
+      }
+
+      else {
+        $registo = new UserIntent;
+
+        $registo->intent = request('intent');
+        $registo->copies = request('copies');
+
+        $registo->syncWithoutDetaching();
+      }
+      return redirect('/');
+
     }
 
     /**

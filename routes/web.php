@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profile', function(){return view('profile');});
 
-Route::group(['prefix' => 'messages'], function () {
+Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'messages', 'uses' => 'MessagesController@index']);
     Route::get('create', ['as' => 'messages.create', 'uses' => 'MessagesController@create']);
     Route::post('/', ['as' => 'messages.store', 'uses' => 'MessagesController@store']);
@@ -30,14 +30,10 @@ Route::group(['prefix' => 'messages'], function () {
 });
 
 
-Route::get('/wishlist', function(){
-    return view('wishlist');
-});
 
 
 Route::middleware('auth')->group(function (){
     Route::get('/wishlist', 'WantsController@index');
     Route::get('/selling', 'SellsController@index');
     Route::get('/mybinder', 'CardController@index');
-
 });

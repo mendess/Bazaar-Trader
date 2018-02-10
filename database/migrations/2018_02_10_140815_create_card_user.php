@@ -15,7 +15,7 @@ class CreateCardUser extends Migration
     {
          // Creates pivot table
      	Schema::create('card_user', function (Blueprint $table) {
-		  $table->integer('card_id');
+		      $table->integer('card_id');
           $table->integer('user_id');
           $table->string('intent');
           $table->float('price');

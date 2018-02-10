@@ -29,7 +29,7 @@ class WantsController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -44,24 +44,28 @@ class WantsController extends Controller
 
       $validator = Validator::make($request->all(),[
         'intent' => 'required',
-        'price' => 'required',
-        'copies' => 'required'
+        'copies' => 'required',
+        'name' => 'name'
       ]);
 
       if($validator->fail()){
         redirect('/')->withErrors($validator);
       }
-
       else {
+        $carta = \App\Card::where('name', request('name'))->first();
+        if($carta){
         $registo = new UserIntent;
 
-        $registo->price = request('price');
+
+
+
         $registo->intent = request('intent');
         $registo->copies = request('copies');
 
         $registo->syncWithoutDetaching();
-      }
-      return redirect('/');
+        }
+    }
+      return redirect('/wishlist');
 
     }
 
