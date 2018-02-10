@@ -44,7 +44,6 @@ class WantsController extends Controller
 
       $validator = Validator::make($request->all(),[
         'intent' => 'required',
-        'price' => 'required',
         'copies' => 'required'
       ]);
 
@@ -55,7 +54,6 @@ class WantsController extends Controller
       else {
         $registo = new UserIntent;
 
-        $registo->price = request('price');
         $registo->intent = request('intent');
         $registo->copies = request('copies');
 
