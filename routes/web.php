@@ -42,6 +42,7 @@ Route::get('/bazaar', 'BazaarController@index')->name('bazaar');
 Route::middleware('auth')->group(function (){
     Route::get('/wishlist', 'WantsController@index');
     Route::post('/wishlist/add_wish_card', 'WantsController@store')->name('add_wish_card');
+    Route::post('/selling/add_sell_card', 'SellsController@store')->name('add_sell_card');
     Route::get('/selling', 'SellsController@index');
     Route::get('/mybinder', 'CardController@index');
 });
