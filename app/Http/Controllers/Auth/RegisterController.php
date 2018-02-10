@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use JeroenDesloovere\Geolocation\Geolocation;
 
 class RegisterController extends Controller
 {
@@ -67,6 +68,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $result = new Geolocation();
+        $result = $result->getCoordinates($data['street'], $data['streetnumber'], $data['city'], $data['zip'], $data['country']);
+        
+
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -76,6 +82,8 @@ class RegisterController extends Controller
             'city' => $data['city'],
             'zip' => $data['zip'],
             'country' => $data['country'],
+            'lat' => $result['latitude'],
+            'lng' => $result['longitude'],
         ]);
     }
 }
