@@ -37,7 +37,7 @@ Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
 });
 
 
-
+Route::get('/bazaar', 'BazaarController@index')->name('bazaar');
 
 Route::middleware('auth')->group(function (){
     Route::get('/wishlist', 'WantsController@index');
