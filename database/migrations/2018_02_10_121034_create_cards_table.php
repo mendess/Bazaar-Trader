@@ -30,7 +30,7 @@ class CreateCardsTable extends Migration
             $table->string('loyalty')->default(null);
             $table->timestamps();
             $table->text('flavor')->default(null);
-            $table->string('set');
+            $table->string('expansion');
             $table->string('setNumber');
             $table->string('artist');
             $table->string('rarity');
