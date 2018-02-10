@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\UserIntent;
+use App\CardUser;
 use Redirect;
 use Validator;
 use Auth;
@@ -48,18 +48,20 @@ class WantsController extends Controller
             ]);
 
         $result = \App\Card::where('name',$data['name'])->first(); //CHECK
-        
+
         if($result == null){
             $message = "Invalid Card";
             return view('/wishlist', compact('message'));
         }
         else {
-            $registo = new UserIntent;
+            $registo = new CardUser;
 
-            $registo->intent = request('intent');
+            $registo->user_id = $user->id;
+            $registo->card_id = $result->id;
+            $registo->intent = 'want';
             $registo->copies = request('copies');
 
-            $registo->syncWithoutDetaching();
+            $registo->save();
 
             return view('/wishlist');
         }
@@ -70,12 +72,12 @@ class WantsController extends Controller
         'copies' => 'required',
         'name' => 'required'
       ]);
-      
+
       if($validator->fails()){
         return redirect('/')->withErrors($validator);
       } */
-        
-        
+
+
 
     }
 
