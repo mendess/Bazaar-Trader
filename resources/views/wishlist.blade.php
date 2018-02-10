@@ -53,7 +53,7 @@
 @foreach ($cards as $card)
     <div class="container">
         <ul>
-            <li>Wanted: {{$card->pivot->card_user->copies}}</li>
+            <li>Wanted: {{$card->pivot->copies}}</li>
             <li>Name: {{$card->name}}</li>
             <li>Type: {{$card->type}}</li>
             <li>Mana Cost: {{$card->manaCost}}</li>

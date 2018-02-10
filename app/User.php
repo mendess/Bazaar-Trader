@@ -30,6 +30,6 @@ class User extends Authenticatable
     ];
 
     public function cards(){
-      return $this->belongsToMany('\App\Card', 'card_user')->using('App\CardUser');
+      return $this->belongsToMany('\App\Card', 'card_user')->using('App\CardUser')->withPivot('copies');
     }
 }

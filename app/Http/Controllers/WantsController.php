@@ -19,7 +19,6 @@ class WantsController extends Controller
     public function index()
     {
         $cards = Auth::user()->cards()->where('intent', 'want')->get();
-        dd($cards->first()->pivot->);
         return view('wishlist', compact('cards'));
     }
 
