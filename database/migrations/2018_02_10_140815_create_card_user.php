@@ -18,7 +18,6 @@ class CreateCardUser extends Migration
 		      $table->integer('card_id');
           $table->integer('user_id');
           $table->string('intent');
-          $table->float('price');
           $table->integer('copies');
 	    });
     }

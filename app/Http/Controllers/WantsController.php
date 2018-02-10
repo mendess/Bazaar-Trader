@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\UserIntent;
+use App\CardUser;
 use Redirect;
 use Validator;
 use Auth;
@@ -40,32 +40,43 @@ class WantsController extends Controller
      */
     public function store(Request $request)
     {
-      $user = Auth::user();
+        $user = Auth::user();
 
-      $validator = Validator::make($request->all(),[
+        $data = $request->validate([
+            'copies' => 'required',
+            'name' => 'required'
+            ]);
+
+        $result = \App\Card::where('name',$data['name'])->first(); //CHECK
+
+        if($result == null){
+            $message = "Invalid Card";
+            return redirect('/wishlist');
+        }
+        else {
+            $registo = new CardUser;
+            $registo->user_id = $user->id;
+            $registo->card_id = $result->id;
+            $registo->intent = 'want';
+            $registo->copies = request('copies');
+
+            $registo->save();
+
+            return redirect('/wishlist');
+        }
+
+
+      /* $validator = Validator::make($request->all(),[
         'intent' => 'required',
         'copies' => 'required',
-        'name' => 'name'
+        'name' => 'required'
       ]);
 
-      if($validator->fail()){
-        redirect('/')->withErrors($validator);
-      }
-      else {
-        $carta = \App\Card::where('name', request('name'))->first();
-        if($carta){
-        $registo = new UserIntent;
+      if($validator->fails()){
+        return redirect('/')->withErrors($validator);
+      } */
 
 
-
-
-        $registo->intent = request('intent');
-        $registo->copies = request('copies');
-
-        $registo->syncWithoutDetaching();
-        }
-    }
-      return redirect('/wishlist');
 
     }
 

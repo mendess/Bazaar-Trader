@@ -28,9 +28,9 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li><a href="/messages">Messages</a></li>
-                            <li><a href="/mybinder">My Binder</a></li>
                             <li><a href="/wishlist">Wishlist</a></li>
                             <li><a href="/selling">Trade</a></li>
+                            <li><a href="/bazaar">Bazaar</a></li>
 
 
                             <li class="dropdown">

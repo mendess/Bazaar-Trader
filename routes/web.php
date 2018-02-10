@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,7 +18,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/profile', function(){return view('profile');});
+Route::get('/profile', function(){
+  $user = Auth::user();
+  return view('profile', compact('user'));
+});
+
+Route::get('/users/{id}', 'UsersController@show');
+Route::get('/user_not_found', function(){
+    return view('user_not_found');
+});
 
 Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'messages', 'uses' => 'MessagesController@index']);
@@ -30,10 +37,11 @@ Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
 });
 
 
-
+Route::get('/bazaar', 'BazaarController@index')->name('bazaar');
 
 Route::middleware('auth')->group(function (){
     Route::get('/wishlist', 'WantsController@index');
+    Route::post('/wishlist/add_wish_card', 'WantsController@store')->name('add_wish_card');
     Route::get('/selling', 'SellsController@index');
     Route::get('/mybinder', 'CardController@index');
 });
