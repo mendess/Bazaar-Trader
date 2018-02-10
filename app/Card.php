@@ -8,6 +8,6 @@ class Card extends Model
 {
 
     public function users(){
-      return $this->belogsToMany('\App\User', 'card_user');
+      return $this->belogsToMany('\App\User', 'card_user')->using('App\UserIntent');
     }
 }

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\UserIntent;
+use Redirect;
+use Validator;
+
 class WantsController extends Controller
 {
     /**
@@ -13,7 +17,7 @@ class WantsController extends Controller
      */
     public function index()
     {
-        //
+      return Auth::user()->cards()->where('intent', 'want')->get();
     }
 
     /**
@@ -34,7 +38,29 @@ class WantsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $user = Auth::();
+
+      $validator = Validator::make($request->all(),[
+        'intent' => 'required',
+        'price' => 'required',
+        'copies' => 'required'
+      ]);
+
+      if($validator->fail()){
+        redirect('/')->withErrors($validator);
+      }
+
+      else {
+        $registo = new UserIntent;
+
+        $registo->price = request('price');
+        $registo->intent = request('intent');
+        $registo->copies = request('copies');
+
+        $registo->syncWithoutDetaching();
+      }
+      return redirect('/');
+
     }
 
     /**
