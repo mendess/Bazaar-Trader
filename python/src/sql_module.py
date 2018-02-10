@@ -12,14 +12,15 @@ def runQuery(driver, query):
     cursor.execute(query)
     return cursor
 
-def insertCard(driver,data):
+def insertCard(driver,data,expansion):
     x = driver.cursor()
+    mid = data['multiverseid']
     name = data['name']
     layout = data['layout']
     manaCost = data['manaCost']
     cmc = data['cmc']
     colors = makeFormatedString(data['colors'])
-    cardTypes = makeFormatedString(data['types'])
+    cTps = makeFormatedString(data['types'])
     colorIdentity = makeFormatedString(data['colorIdentity'])
     subtypes = makeFormatedString(data['subtypes'])
     text = data['text']
@@ -27,13 +28,17 @@ def insertCard(driver,data):
     toughness = data['toughness']
     imageName = data['imageName']
     loyalty = data['loyalty']
+    flavor = data['flavor']
+    number = data['number']
+    artist = data['artist']
+    rarity = data['rarity']
 
     try:
         x.execute("""INSERT INTO cards 
-                     (name,layout,manaCost,cmc,colors,type,subtypes,text,power,toughness,imageName,colorIdentity,loyalty)
-                     VALUES 
-                     (%s  ,%s    ,%s      ,%d ,%s    ,%s  ,%s      ,%s  ,%d   ,%d       ,%s       ,%s           ,%d     )""",
-                     (name,layout,manaCost,cmc,colors,cardTypes,subtypes,text,power,toughness,imageName,colorIdentity,loyalty))
+                    (id ,name,layout,manaCost,cmc,colors,type,subtypes,text,power,toughness,imageName,colorIdentity,loyalty,flavor,number,artist,rarity)
+                    VALUES 
+                    (%d ,%s  ,%s    ,%s      ,%d ,%s    ,%s  ,%s      ,%s  ,%d   ,%d       ,%s       ,%s           ,%d     ,%s    ,%d    ,%s    ,%s    )""",
+                    (mid,name,layout,manaCost,cmc,colors,cTps,subtypes,text,power,toughness,imageName,colorIdentity,loyalty,flavor,number,artist,rarity))
         driver.commit()
     except:
         driver.rollback()
