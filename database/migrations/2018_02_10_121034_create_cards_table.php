@@ -31,7 +31,7 @@ class CreateCardsTable extends Migration
             $table->timestamps();
             $table->text('flavor')->default(null);
             $table->string('set');
-            $table->integer('number');
+            $table->string('setNumber');
             $table->string('artist');
             $table->string('rarity');
         });
