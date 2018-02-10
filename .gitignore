@@ -13,3 +13,4 @@ yarn-error.log
 python/env
 .vscode
 *.swp
+__pycache__
