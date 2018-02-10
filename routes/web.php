@@ -34,6 +34,7 @@ Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
 
 Route::middleware('auth')->group(function (){
     Route::get('/wishlist', 'WantsController@index');
+    Route::post('/wishlist/add_wish_card', 'WantsController@store')->name('add_wish_card');
     Route::get('/selling', 'SellsController@index');
     Route::get('/mybinder', 'CardController@index');
 });
