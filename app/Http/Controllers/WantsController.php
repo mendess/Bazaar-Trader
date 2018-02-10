@@ -48,9 +48,9 @@ class WantsController extends Controller
             ]);
 
         $result = \App\Card::where('name',$data['name'])->first(); //CHECK
-        
+
         $message = "";
-        
+
         if($result == null){
             $message = "Invalid Card";
             return view('/', compact('message'));
@@ -58,10 +58,10 @@ class WantsController extends Controller
         else {
             $registo = new UserIntent;
 
-            $registo->intent = request('intent');
+            $registo->intent = 'want';
             $registo->copies = request('copies');
 
-            $registo->syncWithoutDetaching();
+            $registo->save();
 
             return view('/wishlist');
         }
@@ -72,12 +72,12 @@ class WantsController extends Controller
         'copies' => 'required',
         'name' => 'required'
       ]);
-      
+
       if($validator->fails()){
         return redirect('/')->withErrors($validator);
       } */
-        
-        
+
+
 
     }
 
