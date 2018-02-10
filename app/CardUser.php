@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class UserIntent extends Pivot
+class CardUser extends Pivot
 {
   protected $fillable = [
     'intent', 'copies'
-  ]
+  ];
 }
