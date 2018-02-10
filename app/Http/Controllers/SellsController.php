@@ -47,8 +47,12 @@ class SellsController extends Controller
             'name' => 'required'
             ]);
 
-      $result = \App\Card::where('name',$data['name'])->first(); //CHECK
 
+        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'sell'])->get();
+        if($actual->first() != null) return redirect('/sell');
+
+
+      $result = \App\Card::where('name',$data['name'])->first(); //CHECK
         if($result == null){
             $message = "Invalid Card";
             return redirect('/selling');
