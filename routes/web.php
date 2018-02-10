@@ -33,3 +33,11 @@ Route::group(['prefix' => 'messages'], function () {
 Route::get('/wishlist', function(){
     return view('wishlist');
 });
+
+
+Route::middleware('auth')->group(function (){
+    Route::get('/wishlist', 'WantsController@index');
+    Route::get('/selling', 'SellsController@index');
+    Route::get('/mybinder', 'CardController@index');
+
+});

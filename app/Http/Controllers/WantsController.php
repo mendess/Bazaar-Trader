@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\UserIntent;
 use Redirect;
 use Validator;
+use Auth;
 
 class WantsController extends Controller
 {
@@ -17,7 +18,8 @@ class WantsController extends Controller
      */
     public function index()
     {
-      return Auth::user()->cards()->where('intent', 'want')->get();
+        $cards = Auth::user()->cards()->where('intent', 'want')->get();
+        return view('wishlist', compact('cards'));
     }
 
     /**
@@ -38,7 +40,7 @@ class WantsController extends Controller
      */
     public function store(Request $request)
     {
-      $user = Auth::();
+      $user = Auth::user();
 
       $validator = Validator::make($request->all(),[
         'intent' => 'required',

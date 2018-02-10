@@ -29,6 +29,6 @@ class User extends Authenticatable
     ];
 
     public function cards(){
-      return $this->belogsToMany('\App\Card', 'card_user')->using('App\UserIntent');
+      return $this->belongsToMany('\App\Card', 'card_user')->using('App\UserIntent');
     }
 }
