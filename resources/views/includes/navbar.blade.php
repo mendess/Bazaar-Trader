@@ -27,11 +27,11 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="/chat">Chat</a></li>
+                            <li><a href="/messages">Messages</a></li>
                             <li><a href="/mybinder">My Binder</a></li>
                             <li><a href="/wishlist">Wishlist</a></li>
                             <li><a href="/selling">Trade</a></li>
-                            
+
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
@@ -51,7 +51,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    
+
                                 </ul>
                             </li>
                         @endguest
