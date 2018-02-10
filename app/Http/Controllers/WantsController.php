@@ -19,6 +19,7 @@ class WantsController extends Controller
     public function index()
     {
         $cards = Auth::user()->cards()->where('intent', 'want')->get();
+        dd($cards->first()->pivot->);
         return view('wishlist', compact('cards'));
     }
 
@@ -51,11 +52,10 @@ class WantsController extends Controller
 
         if($result == null){
             $message = "Invalid Card";
-            return view('/wishlist', compact('message'));
+            return redirect('/wishlist');
         }
         else {
             $registo = new CardUser;
-
             $registo->user_id = $user->id;
             $registo->card_id = $result->id;
             $registo->intent = 'want';
@@ -63,7 +63,7 @@ class WantsController extends Controller
 
             $registo->save();
 
-            return view('/wishlist');
+            return redirect('/wishlist');
         }
 
 
