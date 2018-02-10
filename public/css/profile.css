@@ -1,3 +1,8 @@
+@@font-face {
+  font-family: "Magic";
+  src: url("img/Planewalker.ttf") format("truetype");
+}
+
 #imgperfil{
     height: 8cm;
     width: 7cm;
@@ -7,7 +12,7 @@
 
 #idtext{
     font-size: 30px;
-    font-family: serif;
+    font-family: "Magic";
     margin-left: 2cm;
 }
 
@@ -17,4 +22,19 @@
   height: 100vh;
   width: 20%;
   background-position: top;
+}
+
+#welcomepic{
+  height: 15cm;
+  width: 30cm;
+}
+
+#welcometitle{
+  font-size: 30px;
+  font-family: "Magic";
+}
+
+#imguser{
+  height: 20cm;
+  width: 20cm;
 }
