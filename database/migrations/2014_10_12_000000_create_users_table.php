@@ -18,6 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('address')->default('cona');
+            $table->float('lat', 10, 6)->default(123.233);
+            $table->float('lng', 10, 6)->default(2233.3);
             $table->rememberToken();
             $table->timestamps();
         });
