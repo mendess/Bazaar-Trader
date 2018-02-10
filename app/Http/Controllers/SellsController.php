@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class SellsController extends Controller
 {
     /**
@@ -14,7 +14,7 @@ class SellsController extends Controller
     public function index()
     {
       $cards = Auth::user()->cards()->where('intent', 'sell')->get();
-      return('selling', compact('cards'));
+      return view('selling', compact('cards'));
     }
 
     /**
