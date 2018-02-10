@@ -43,18 +43,17 @@ class WantsController extends Controller
         $user = Auth::user();
 
         $data = $request->validate([
-            'intent' => 'required',
             'copies' => 'required',
             'name' => 'required'
             ]);
 
-        $result = Card::where($data)->first(); //CHECK
-        dd($result);
+        $result = \App\Card::where('name',$data['name'])->first(); //CHECK
+        
         $message = "";
         
         if($result == null){
             $message = "Invalid Card";
-            return view('/wishlist', compact('message'));
+            return view('/', compact('message'));
         }
         else {
             $registo = new UserIntent;
@@ -64,7 +63,7 @@ class WantsController extends Controller
 
             $registo->syncWithoutDetaching();
 
-            return redirect('wishlist');
+            return view('/wishlist');
         }
 
 
