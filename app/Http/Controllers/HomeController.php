@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -25,4 +26,11 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function show($id){
+        $user = User::where('id', $id);
+
+        return view('profile', compact('user'));
+    }
+
 }

@@ -23,6 +23,11 @@ Route::get('/profile', function(){
   return view('profile', compact('user'));
 });
 
+Route::get('/users/{id}', 'UsersController@show');
+Route::get('/user_not_found', function(){
+    return view('user_not_found');
+});
+
 Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
     Route::get('/', ['as' => 'messages', 'uses' => 'MessagesController@index']);
     Route::get('create', ['as' => 'messages.create', 'uses' => 'MessagesController@create']);

@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\UserIntent;
-use Redirect;
-use Validator;
-use Auth;
+use App\User;
 
-class WantsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,7 @@ class WantsController extends Controller
      */
     public function index()
     {
-        $cards = Auth::user()->cards()->where('intent', 'want')->get();
-        return view('wishlist', compact('cards'));
+        //
     }
 
     /**
@@ -29,7 +25,7 @@ class WantsController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -40,43 +36,7 @@ class WantsController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-
-        $data = $request->validate([
-            'copies' => 'required',
-            'name' => 'required'
-            ]);
-
-        $result = \App\Card::where('name',$data['name'])->first(); //CHECK
-        
-        if($result == null){
-            $message = "Invalid Card";
-            return view('/wishlist', compact('message'));
-        }
-        else {
-            $registo = new UserIntent;
-
-            $registo->intent = request('intent');
-            $registo->copies = request('copies');
-
-            $registo->syncWithoutDetaching();
-
-            return view('/wishlist');
-        }
-
-
-      /* $validator = Validator::make($request->all(),[
-        'intent' => 'required',
-        'copies' => 'required',
-        'name' => 'required'
-      ]);
-      
-      if($validator->fails()){
-        return redirect('/')->withErrors($validator);
-      } */
-        
-        
-
+        //
     }
 
     /**
@@ -87,7 +47,12 @@ class WantsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        if($user == null)
+            return view('user_not_found');
+
+        return view('profile', compact('user'));
     }
 
     /**
