@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\UserIntent;
+use App\CardUser;
 use Redirect;
 use Validator;
 use Auth;
@@ -56,8 +56,10 @@ class WantsController extends Controller
             return view('/', compact('message'));
         }
         else {
-            $registo = new UserIntent;
+            $registo = new CardUser;
 
+            $registo->user_id = $user->id;
+            $registo->card_id = $result->id;
             $registo->intent = 'want';
             $registo->copies = request('copies');
 

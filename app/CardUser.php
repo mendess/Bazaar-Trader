@@ -9,4 +9,5 @@ class CardUser extends Pivot
   protected $fillable = [
     'intent', 'copies'
   ];
+  public $timestamps = false;
 }
