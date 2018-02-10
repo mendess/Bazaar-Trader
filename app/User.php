@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'lat', 'lng',
+        'street', 'streetnumber', 'city', 'zip', 'country'
     ];
 
     /**
@@ -27,4 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function cards(){
+      return $this->belongsToMany('\App\Card', 'card_user')->using('App\CardUser')->withPivot('copies');
+    }
 }

@@ -39,6 +39,77 @@
                             </div>
                         </div>
 
+
+
+                        <!-- ADRESS STUFF-->
+
+                        <div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
+                            <label for="streeet" class="col-md-4 control-label">Street</label>
+
+                            <div class="col-md-6">
+                                <input id="street" type="street" class="form-control" name="street" required>
+
+                                @if ($errors->has('street'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('street') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('streetnumber') ? ' has-error' : '' }}">
+                            <label for="streetnumber" class="col-md-4 control-label">Street Number</label>
+
+                            <div class="col-md-6">
+                                <input id="streetnumber" type="streetnumber" class="form-control" name="streetnumber" required>
+
+                                @if ($errors->has('streetnumber'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('streetnumber') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }}">
+                            <label for="zip" class="col-md-4 control-label">Zip Code</label>
+
+                            <div class="col-md-6">
+                                <input id="zip" type="zip" class="form-control" name="zip" required>
+
+                                @if ($errors->has('zip'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('zip') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>     
+                        <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+                            <label for="city" class="col-md-4 control-label">City</label>
+
+                            <div class="col-md-6">
+                                <input id="city" type="city" class="form-control" name="city" required>
+
+                                @if ($errors->has('city'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                            <label for="country" class="col-md-4 control-label">Country</label>
+
+                            <div class="col-md-6">
+                                <input id="country" type="country" class="form-control" name="country" required>
+
+                                @if ($errors->has('country'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('country') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>                  
+                         <!-- ADRESS STUFF ENDS-->
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
