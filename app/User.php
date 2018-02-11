@@ -33,10 +33,23 @@ class User extends Authenticatable
       return $this->belongsToMany('\App\Card', 'card_user')->using('App\CardUser')->withPivot('copies');
     }
 
-    public function areYouCloseEnough(int $distance)
+    public function areYouCloseEnough(int $distance,float $theirLat,float $theirLng)
     {
-        $lat = $this->lat;
         $lng = $this->lng;
-        return $distance > 3956*2*asin(sqrt(pow(sin((19.286558 - $lat)*pi()/180/2),2)+cos(19.286558 * pi()/180)*cos($lng * pi()/180)*pow(sin((-99.612494 - $lng)* pi()/180/2),2)));
+        $r = 6371e3; // metres
+        $lat = deg2rad($this->$lat);
+        $lng = deg2rad($this->$lng);
+        $deltaLat = deg2rad($theirLat - $this->lat);
+        $deltaLng = deg2rad($theirLng - $this->lng);
+
+        $a= sin($deltaLat/2) * sin($deltaLat/2) +
+            cos($lat) * cos($lng) *
+            sin($deltaLng/2) * sin($deltaLng/2);
+        
+        $c = 2 * atan2(sqrt(a), sqrt(1-a));
+
+        $d = $r * $c;
+        
+        return $distance > $d
     }
 }
