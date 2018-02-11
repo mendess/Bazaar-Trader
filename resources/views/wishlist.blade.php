@@ -59,12 +59,19 @@
             <li>Text: {{$card->text}}</li>
             <li>Flavor: {{$card->flavor}}</li>
 
-            @if ($card->power !== 'None' || $card->toughness !== 'None')    <!--TODO-->
+            @if ($card->power !== 'None' || $card->toughness !== 'None')
                 <li>Power: {{$card->power}}</li>
                 <li>Toughness: {{$card->toughness}}</li>
             @endif
             
             <li>Set: {{$card->expansion}}</li>
+            
+
+            <form action = "/wishlist/del_card/{{ $card->id }}" method = "post">
+                {{ csrf_field() }}
+                <input style="background-color:#a7cb00; color:#f00;" type="submit" name="upvote" value="Remove"/>
+            </form>
+                       
     </div>
 
 @endforeach
