@@ -4,7 +4,6 @@
 @section('content')
 
 
-
 <div class="panel-body">
     <form class="form-horizontal" method="POST" action="{{ route('add_wish_card') }}">
         {{ csrf_field() }}
@@ -48,29 +47,36 @@
     </form>
 </div>
 
-
-<ul>
+<div class="container">
 @foreach ($cards as $card)
-    <div class="container">
-        <ul>
-            <li>Wanted: {{$card->pivot->copies}}</li>
-            <li>Name: {{$card->name}}</li>
+
+    <div class="card">
+            <li>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></li>
+            <li>Name: <span class="label label-default">{{$card->name}}</span></li>
             <li>Type: {{$card->type}}</li>
-            <li>Mana Cost: {{$card->manaCost}}</li>
+            <li>Mana Cost: <span class="label label-default">{{$card->manaCost}}</span></li>
             <li>Cmc: {{$card->cmc}}</li>
             <li>Text: {{$card->text}}</li>
             <li>Flavor: {{$card->flavor}}</li>
 
-            @if ($card->power !== null || $card->toughness !== null)    <!--TODO-->
+            @if ($card->power !== 'None' || $card->toughness !== 'None')
                 <li>Power: {{$card->power}}</li>
                 <li>Toughness: {{$card->toughness}}</li>
             @endif
             
-            <li>Set: {{$card->set}}</li>
-        </ul>
+            <li>Set: {{$card->expansion}}</li>
+            
+
+            <form action = "/wishlist/del_card/{{ $card->id }}" method = "post">
+                {{ csrf_field() }}
+                <input style="background-color:#a7cb00; color:#f00;" type="submit" name="upvote" value="Remove"/>
+            </form>
+                       
     </div>
+
 @endforeach
-</ul>
+</div>
+
 
 
 @endsection
