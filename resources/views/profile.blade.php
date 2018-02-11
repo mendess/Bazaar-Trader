@@ -44,10 +44,6 @@
 
 				<li>Set: {{$card->expansion}}</li>
 			</div> -->
-			<form action = "/wishlist/del_card/{{ $card->id }}" method = "post">
-				{{ csrf_field() }}
-				<input style="background-color:#cb0000; color:rgb(255, 255, 255);" type="submit" name="upvote" value="Remove"/>
-			</form>
 			<p>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></p>
 		</div>
 
