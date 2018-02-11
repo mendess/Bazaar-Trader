@@ -38,3 +38,7 @@
   height: 20cm;
   width: 20cm;
 }
+
+#trading_card{
+  display: inline-block;
+}
