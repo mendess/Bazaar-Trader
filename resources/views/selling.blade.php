@@ -8,20 +8,15 @@
 <div class="panel-body">
     <form class="form-horizontal" method="POST" action="{{ route('add_sell_card') }}">
         {{ csrf_field() }}
-
-        <div id="card1" class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+        <div id="card" class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label for="name" class="col-md-4 control-label">Card</label>
+                <select id="name" name="name" style="color: black;">
+                    @foreach($allcards as $onecard)
+                        <option value="{{ $onecard->name }}" colour="black">{{ $onecard->name }}</option>
+                    @endforeach
+                </select>
 
-            <div class="col-md-6">
-                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                @if ($errors->has('name'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('name') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
+        </div> 
         <div id="number1" class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label for="name" class="col-md-4 control-label">Number of Copies</label>
 
