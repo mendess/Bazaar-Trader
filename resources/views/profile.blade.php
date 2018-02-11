@@ -3,7 +3,7 @@
 
 @section('content')
 
-<body background="/img/profileback.jpg">
+<body background="/img/fundo.jpg">
     <div id="sidebar">
       <img id="imgperfil" src="/img/profilepic.jpg"/>
       <div id="idtext" style="color:#2EFEF7">

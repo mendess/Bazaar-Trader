@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\CardUser;
+use Redirect;
+use Validator;
 use Illuminate\Http\Request;
 use Auth;
+
+
 class SellsController extends Controller
 {
     /**
@@ -37,27 +42,34 @@ class SellsController extends Controller
     {
         //
       $user = Auth::user();
+      $data = $request->validate([
+            'copies' => 'required',
+            'name' => 'required'
+            ]);
 
-      $validator = Validator::make($request->all(),[
-        'intent' => 'required',
-        'copies' => 'required'
-      ]);
 
-      if($validator->fail()){
-        redirect('/')->withErrors($validator);
-      }
+        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'sell'])->get();
+        if($actual->first() != null) return redirect('/sell');
 
-      else {
-        $registo = new UserIntent;
 
-        $registo->intent = request('intent');
-        $registo->copies = request('copies');
+      $result = \App\Card::where('name',$data['name'])->first(); //CHECK
+        if($result == null){
+            $message = "Invalid Card";
+            return redirect('/selling');
+        }
+        else {
+            $registo = new CardUser;
+            $registo->user_id = $user->id;
+            $registo->card_id = $result->id;
+            $registo->intent = 'sell';
+            $registo->copies = request('copies');
 
-        $registo->syncWithoutDetaching();
-      }
-      return redirect('/');
+            $registo->save();
+
+            return redirect('/selling');
 
     }
+  }
 
     /**
      * Display the specified resource.

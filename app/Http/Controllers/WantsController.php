@@ -47,8 +47,12 @@ class WantsController extends Controller
             'name' => 'required'
             ]);
 
-        $result = \App\Card::where('name',$data['name'])->first(); //CHECK
 
+        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'want'])->get();
+        if($actual->first() != null) return redirect('/wishlist');
+
+
+        $result = \App\Card::where('name',$data['name'])->first(); //CHECK
         if($result == null){
             $message = "Invalid Card";
             return redirect('/wishlist');
