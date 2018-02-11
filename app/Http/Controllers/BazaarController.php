@@ -14,6 +14,10 @@ use Auth;
 
 class BazaarController extends Controller
 {
+    // public function areYouCloseEnough(float $lat, float $lng,int $distance)
+    // {
+    //     return $distance > 3956*2*asin(sqrt(pow(sin((19.286558 - $lat)*pi()/180/2),2)+cos(19.286558 * pi()/180)*cos($lng * pi()/180)*pow(sin((-99.612494 - $lng)* pi()/180/2),2)));
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +42,10 @@ class BazaarController extends Controller
             ->map(function ($offer){
                 return $offer->user;
             })
-            ->unique();
+            ->unique()
+            ->filter(function($user) use($distance){
+                return $user->areYouCloseEnough($distance);
+            });
         
         $myBinder = Auth::user()->cards()
             ->wherePivot('intent','sell')
@@ -52,8 +59,10 @@ class BazaarController extends Controller
             ->map(function ($offer){
                 return $offer->user;
             })
-            ->unique();
-
+            ->unique()
+            ->filter(function($user) use($distance){
+                return $user->areYouCloseEnough($distance);
+            });
         
         return view('bazaar',compact('usersHave','usersWant','distance'));
     }
