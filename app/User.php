@@ -37,6 +37,8 @@ class User extends Authenticatable
     {
         $lat = $this->lat;
         $lng = $this->lng;
+        dd(3956*2*asin(sqrt(pow(sin((19.286558 - $lat)*pi()/180/2),2)+cos(19.286558 * pi()/180)*cos($lng * pi()/180)*pow(sin((-99.612494 - $lng)* pi()/180/2),2))));
+        
         return $distance > 3956*2*asin(sqrt(pow(sin((19.286558 - $lat)*pi()/180/2),2)+cos(19.286558 * pi()/180)*cos($lng * pi()/180)*pow(sin((-99.612494 - $lng)* pi()/180/2),2)));
     }
 }
