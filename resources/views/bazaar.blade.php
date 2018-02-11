@@ -10,7 +10,7 @@
             <label for="km" class="col-md-4 control-label">Km Range</label>
 
             <div class="col-md-6">
-                <input id="km" type="text" class="form-control" name="km" value="{{ old('km') }}" required autofocus>
+                <input id="km" type="number" min="0" class="form-control" name="km" value="{{ old('km') }}" required autofocus>
 
                 @if ($errors->has('name'))
                     <span class="help-block">
