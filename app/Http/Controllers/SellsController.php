@@ -8,6 +8,7 @@ use Redirect;
 use Validator;
 use Illuminate\Http\Request;
 use Auth;
+use App\Card as MyCard;
 
 
 class SellsController extends Controller
@@ -23,7 +24,10 @@ class SellsController extends Controller
         $cards->each(function ($card){
           $card['imageName'] = Card::find($card->id)->imageUrl;
         });
-        return view('selling', compact('cards'));
+
+        $allcards = MyCard::all();
+
+        return view('selling', compact('cards','allcards'));
     }
 
     /**

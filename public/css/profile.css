@@ -113,3 +113,14 @@
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+.special{
+  font-size: 50px;
+  font-family: "Magic";
+  color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}

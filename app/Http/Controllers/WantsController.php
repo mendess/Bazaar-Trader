@@ -10,6 +10,7 @@ use App\CardUser;
 use Redirect;
 use Validator;
 use Auth;
+use App\Card as MyCard;
 
 class WantsController extends Controller
 {
@@ -24,7 +25,10 @@ class WantsController extends Controller
         $cards->each(function ($card){
             $card['imageName'] = Card::find($card->id)->imageUrl;
         });
-        return view('wishlist', compact('cards'));
+
+        $allcards = MyCard::all();
+
+        return view('wishlist', compact('cards','allcards'));
     }
 
     /**
