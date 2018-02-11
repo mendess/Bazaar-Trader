@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CardUser;
+use mtgsdk\Card;
 use Redirect;
 use Validator;
 use Illuminate\Http\Request;
@@ -18,8 +19,11 @@ class SellsController extends Controller
      */
     public function index()
     {
-      $cards = Auth::user()->cards()->where('intent', 'sell')->get();
-      return view('selling', compact('cards'));
+        $cards = Auth::user()->cards()->where('intent', 'sell')->get();
+        $cards->each(function ($card){
+          $card['imageName'] = Card::find($card->id)->imageUrl;
+        });
+        return view('selling', compact('cards'));
     }
 
     /**
