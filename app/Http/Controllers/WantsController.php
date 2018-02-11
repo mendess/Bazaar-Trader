@@ -126,6 +126,10 @@ class WantsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pivotEnt = Auth::user()->cards()->where(['intent' => 'want', 'card_id' => $id])->get();
+        $pivotEnt->delete();
+
+        return redirect('/wishlist');
+
     }
 }
