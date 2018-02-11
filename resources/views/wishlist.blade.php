@@ -51,7 +51,8 @@
 @foreach ($cards as $card)
 
     <div class="card">
-            <li>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></li>
+            <img src="{{ $card->imageName }}"/>
+            <!-- <li>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></li>
             <li>Name: <span class="label label-default">{{$card->name}}</span></li>
             <li>Type: {{$card->type}}</li>
             <li>Mana Cost: <span class="label label-default">{{$card->manaCost}}</span></li>
@@ -66,7 +67,7 @@
 
             <li>Set: {{$card->expansion}}</li>
 
-
+            -->
             <form action = "/wishlist/del_card/{{ $card->id }}" method = "post">
                 {{ csrf_field() }}
                 <input style="background-color:#a7cb00; color:#f00;" type="submit" name="upvote" value="Remove"/>
