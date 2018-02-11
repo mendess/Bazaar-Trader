@@ -32,4 +32,11 @@ class User extends Authenticatable
     public function cards(){
       return $this->belongsToMany('\App\Card', 'card_user')->using('App\CardUser')->withPivot('copies');
     }
+
+    public function areYouCloseEnough(int $distance)
+    {
+        $lat = $this->lat;
+        $lng = $this->lng;
+        return $distance > 3956*2*asin(sqrt(pow(sin((19.286558 - $lat)*pi()/180/2),2)+cos(19.286558 * pi()/180)*cos($lng * pi()/180)*pow(sin((-99.612494 - $lng)* pi()/180/2),2)));
+    }
 }

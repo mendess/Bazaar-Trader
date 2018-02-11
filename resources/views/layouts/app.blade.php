@@ -21,18 +21,19 @@
         <nav class="navbar navbar-inverse navbar-static-top ">
             <div class="container">
                 @include('includes.navbar')
-                
+
             </div>
         </nav>
 
         @yield('content')
 
-        <footer class="row">
-            <div id="copyright text-right">© Copyright 2018 Magic Pushi's</div>
-        </footer>
+        
+        
     </div>
-
+        <footer>
+            <div id="copyright text-right">Made with Laravel © Copyright 2018 Magic Pushi's</div>
+        </footer>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+   <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
