@@ -1,4 +1,4 @@
-@@font-face {
+@font-face {
   font-family: "Magic";
   src: url("img/Planewalker.ttf") format("truetype");
 }
@@ -66,6 +66,9 @@
   margin-left: 100px;
 }
 
+.float {
+  float: left;
+}
 #card{
   color: white;
     text-shadow:

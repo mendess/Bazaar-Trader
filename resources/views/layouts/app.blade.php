@@ -28,10 +28,10 @@
         @yield('content')
 
         <footer class="row">
-            <div id="copyright text-right">© Copyright 2018 Magic Pushi's</div>
+            <div id="copyright text-right" class="float">© Copyright 2018 Magic Pushi's</div>
         </footer>
     </div>
-
+    
     <!-- Scripts -->
    <script src="{{ asset('js/app.js') }}"></script>
 </body>
