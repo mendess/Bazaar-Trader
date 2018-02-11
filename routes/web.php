@@ -36,8 +36,10 @@ Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
     Route::put('{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update']);
 });
 
-
-Route::get('/bazaar', 'BazaarController@index')->name('bazaar');
+Route::middleware('auth')->group(function (){
+    Route::get('/bazaar' , 'BazaarController@index');
+    Route::post('/bazaar', 'BazaarController@index');
+});
 
 Route::middleware('auth')->group(function (){
     Route::get('/wishlist', 'WantsController@index');

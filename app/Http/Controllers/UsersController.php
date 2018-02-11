@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use mtgsdk\Card;
 
 class UsersController extends Controller
 {
@@ -48,11 +49,18 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-
         if($user == null)
             return view('user_not_found');
-
-        return view('profile', compact('user'));
+        
+        $haves = $user->cards()->wherePivot('intent','sell')->get();
+        $haves->each(function ($card){
+            $card['imageName'] = Card::find($card->id)->imageUrl;
+        });
+        $wants = $user->cards()->wherePivot('intent','want')->get();
+        $wants->each(function ($card){
+            $card['imageName'] = Card::find($card->id)->imageUrl;
+        });
+        return view('profile', compact('user','haves','wants'));
     }
 
     /**

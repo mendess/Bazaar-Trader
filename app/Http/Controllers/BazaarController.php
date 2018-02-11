@@ -4,42 +4,70 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use Auth;
+use App\CardUser;
 use Illuminate\Support\Facades\DB;
+use Auth;
+
+//algolio
+        //
+
 
 class BazaarController extends Controller
 {
+    // public function areYouCloseEnough(float $lat, float $lng,int $distance)
+    // {
+    //     return $distance > 3956*2*asin(sqrt(pow(sin((19.286558 - $lat)*pi()/180/2),2)+cos(19.286558 * pi()/180)*cos($lng * pi()/180)*pow(sin((-99.612494 - $lng)* pi()/180/2),2)));
+    // }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ourUserId = Auth::user()->id;
-        $usersHave = DB::table('users')
-                        ->join('card_user','users.id','card_user.user_id')
-                        ->whereIn('card_user.card_id',(DB::table('card_user')
-                                                        ->where([
-                                                            ['card_user.user_id','=',$ourUserId],
-                                                            ['card_user.intent','=','sells']
-                                                        ]
-                                                        )
-                                                        ->select('card_id')->get()))
-                        ->select('users.id as id','users.name as name')
-                        ->get();
-        $usersWant = DB::table('users')
-                        ->join('card_user','users.id','card_user.user_id')
-                        ->whereIn('card_user.card_id',(DB::table('card_user')
-                                                        ->where([
-                                                            ['card_user.user_id','=',$ourUserId],
-                                                            ['card_user.intent','=','sells']
-                                                        ]
-                                                        )
-                                                        ->select('card_id')->get()))
-                        ->select('users.id as id','users.name as name')
-                        ->get();
-        return view('bazaar',compact('usersHave','usersWant'));
+        $distance = 5;
+        if($request->isMethod('post')){
+            $distance = $request->input('km');
+        }
+        
+        $myWants = Auth::user()->cards()
+            ->wherePivot('intent','want')
+            ->select('id')
+            ->getBaseQuery();
+        
+        $ourLat = Auth::user()->lat;
+        $ourLng = Auth::user()->lng;
+
+        $usersHave = CardUser::with('user')
+            ->where('intent','sell')
+            ->whereIn('card_id',$myWants)
+            ->get()
+            ->map(function ($offer){
+                return $offer->user;
+            })
+            ->unique()
+            ->filter(function($user) use($distance,$ourLat,$ourLng){
+                return $user->areYouCloseEnough($distance,$ourLat,$ourLng);
+            });
+        
+        $myBinder = Auth::user()->cards()
+            ->wherePivot('intent','sell')
+            ->select('id')
+            ->getBaseQuery();
+        
+        $usersWant = CardUser::with('user')
+            ->where('intent','want')
+            ->whereIn('card_id',$myBinder)
+            ->get()
+            ->map(function ($offer){
+                return $offer->user;
+            })
+            ->unique()
+            ->filter(function($user) use($distance){
+                return $user->areYouCloseEnough($distance);
+            });
+        
+        return view('bazaar',compact('usersHave','usersWant','distance'));
     }
 
     /**

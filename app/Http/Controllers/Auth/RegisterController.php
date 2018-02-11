@@ -57,6 +57,7 @@ class RegisterController extends Controller
             'city' => 'required|string|max:255',
             'zip' => 'required|string|max:255',
             'country' => 'required|string|max:255',
+            'phone_number' => 'required|string|min:13|max:13',
         ]);
     }
 
@@ -84,6 +85,7 @@ class RegisterController extends Controller
             'country' => $data['country'],
             'lat' => $result['latitude'],
             'lng' => $result['longitude'],
+            'phone_number' => $data['phone_number'],
         ]);
     }
 }
