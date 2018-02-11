@@ -63,8 +63,8 @@ class BazaarController extends Controller
                 return $offer->user;
             })
             ->unique()
-            ->filter(function($user) use($distance){
-                return $user->areYouCloseEnough($distance);
+            ->filter(function($user) use($distance,$ourLat,$ourLng){
+                return $user->areYouCloseEnough($distance,$ourLat,$ourLng);
             });
         
         return view('bazaar',compact('usersHave','usersWant','distance'));
