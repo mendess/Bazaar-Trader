@@ -54,7 +54,7 @@ class UsersController extends Controller
         $haves = $user->cards()->wherePivot('intent','sell')->get();
         $wants = $user->cards()->wherePivot('intent','want')->get();
         
-        return view('profile', compact('user'));
+        return view('profile', compact('user','haves','wants'));
     }
 
     /**
