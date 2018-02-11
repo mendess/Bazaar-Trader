@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="panel-body">
-    <form class="form-horizontal" method="POST" action="#">
+    <form class="form-horizontal" method="POST" action="/bazaar">
         {{ csrf_field() }}
 
         <div class="form-group{{ $errors->has('km') ? ' has-error' : '' }}">
@@ -23,14 +23,13 @@
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <button type="submit" class="btn btn-primary">
-                    Add Range
+                    Set Range
                 </button>
             </div>
         </div>
 
     </form>
 </div>
-
 
 <div class="container" >
     <div class="row">

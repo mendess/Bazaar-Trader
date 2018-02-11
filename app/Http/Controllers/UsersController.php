@@ -48,10 +48,12 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-
         if($user == null)
             return view('user_not_found');
-
+        
+        $haves = $user->cards()->wherePivot('intent','sell')->get();
+        $wants = $user->cards()->wherePivot('intent','want')->get();
+        
         return view('profile', compact('user'));
     }
 
