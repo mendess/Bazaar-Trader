@@ -3,8 +3,8 @@
 
 @section('content')
 
-<body background="/img/newprofile.jpg"/>
-    <div id="sidebar">
+<body background="/img/newprofile.jpg">
+    <div id="sidebar" class="float">
       <img id="imgperfil" src="/img/profilepic.jpg"/>
       <div id="idtext" style="color:#2EFEF7">
         <p>{{ $user->name }}</p>
@@ -19,9 +19,10 @@
 
     </div>
 
-<div class="float" >
-	<h2>Wishlist:</h2>
+
 	@if( $user->email !== Auth::user()->email )
+	<div class="float">
+	<h2>Wishlist:</h2>
 			@foreach ($wants as $want)
 
 		<div class="card">
@@ -43,12 +44,12 @@
 		</div>
 
 		@endforeach
+		</div>
 	@endif
-</div>
 
-<div class="float">
-	<h2>Offering:</h2>
 	@if( $user->email !== Auth::user()->email )
+	<div class="float">
+	<h2>Offering:</h2>
 			@foreach ($haves as $have)
 
 		<div class="card">
@@ -70,8 +71,6 @@
 		</div>
 
 		@endforeach
+		</div>
 	@endif
-</div>
-	
-
 @endsection

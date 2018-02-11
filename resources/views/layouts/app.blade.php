@@ -27,11 +27,12 @@
 
         @yield('content')
 
-        <footer class="row">
-            <div id="copyright text-right" class="float">© Copyright 2018 Magic Pushi's</div>
-        </footer>
+        
+        
     </div>
-    
+        <footer>
+            <div id="copyright text-right">Made with Laravel © Copyright 2018 Magic Pushi's</div>
+        </footer>
     <!-- Scripts -->
    <script src="{{ asset('js/app.js') }}"></script>
 </body>
