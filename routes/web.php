@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function (){
     Route::get('/wishlist', 'WantsController@index');
     Route::post('/wishlist/add_wish_card', 'WantsController@store')->name('add_wish_card');
     Route::post('/wishlist/del_card/{id}', 'WantsController@destroy');
-    Route::post('/selling/add_sell_card', 'SellsController@store')->name('add_sell_card');
     Route::get('/selling', 'SellsController@index');
+    Route::post('/selling/add_sell_card', 'SellsController@store')->name('add_sell_card');
+    Route::post('/selling/del_card/{id}', 'SellsController@destroy');
+    
 });
