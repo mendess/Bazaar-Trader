@@ -52,17 +52,17 @@ class WantsController extends Controller
             'name' => 'required'
             ]);
 
-
-        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'want'])->get();
-        if($actual->first() != null) return redirect('/wishlist');
-
-
-        $result = \App\Card::where('name',$data['name'])->first(); //CHECK
+        $result = \App\Card::where('name',$data['name'])->get()->first(); //CHECK
         if($result == null){
+            dd($result,$data['name']);
             $message = "Invalid Card";
             return redirect('/wishlist');
         }
-        else {
+
+        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'want'])->get();
+        if($actual->first() != null) {;
+            $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
+        }else{
             $registo = new CardUser;
             $registo->user_id = $user->id;
             $registo->card_id = $result->id;
@@ -70,9 +70,9 @@ class WantsController extends Controller
             $registo->copies = request('copies');
 
             $registo->save();
-
-            return redirect('/wishlist');
         }
+        return redirect('/wishlist');
+    }
 
 
       /* $validator = Validator::make($request->all(),[
@@ -87,7 +87,6 @@ class WantsController extends Controller
 
 
 
-    }
 
     /**
      * Display the specified resource.

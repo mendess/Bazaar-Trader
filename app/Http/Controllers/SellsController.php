@@ -44,24 +44,24 @@ class SellsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-      $user = Auth::user();
-      $data = $request->validate([
+        $user = Auth::user();
+
+        $data = $request->validate([
             'copies' => 'required',
             'name' => 'required'
             ]);
 
-
-        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'sell'])->get();
-        if($actual->first() != null) return redirect('/sell');
-
-
-      $result = \App\Card::where('name',$data['name'])->first(); //CHECK
+        $result = \App\Card::where('name',$data['name'])->get()->first(); //CHECK
         if($result == null){
+            dd($result,$data['name']);
             $message = "Invalid Card";
             return redirect('/selling');
         }
-        else {
+
+        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'sell'])->get();
+        if($actual->first() != null) {;
+            $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
+        }else{
             $registo = new CardUser;
             $registo->user_id = $user->id;
             $registo->card_id = $result->id;
@@ -69,11 +69,11 @@ class SellsController extends Controller
             $registo->copies = request('copies');
 
             $registo->save();
-
-            return redirect('/selling');
-
+        }
+        return redirect('/selling');
     }
-  }
+
+
 
     /**
      * Display the specified resource.
