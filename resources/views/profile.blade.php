@@ -28,10 +28,6 @@
 		<div class="card">
 			<li>Name: <span class="label label-default">{{$card->name}}</span></li>
     		<a href="{{ $card->imageName }}" ><img class="card-img" src="{{ $card->imageName }}"/></a>
-    		<form action = "/wishlist/del_card/{{ $card->id }}" method = "post">
-    		    {{ csrf_field() }}
-    		    <input style="background-color:#cb0000; color:rgb(255, 255, 255);" type="submit" name="upvote" value="Remove"/>
-    		</form>
     		<p>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></p>
 		</div>
 		@endforeach
@@ -45,10 +41,6 @@
 		<div class="card">
 			<li>Name: <span class="label label-default">{{$card->name}}</span></li>
     		<a href="{{ $card->imageName }}" ><img class="card-img" src="{{ $card->imageName }}"/></a>
-    		<form action = "/wishlist/del_card/{{ $card->id }}" method = "post">
-    		    {{ csrf_field() }}
-    		    <input style="background-color:#cb0000; color:rgb(255, 255, 255);" type="submit" name="upvote" value="Remove"/>
-    		</form>
     		<p>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></p>
 		</div>
 		@endforeach
