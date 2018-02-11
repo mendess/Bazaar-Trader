@@ -12,5 +12,8 @@
 ### Bazar (not-empty)
 ![](bazaar_got.png)
 
+### Profile
+![](profile.png)
+
 ### Messages
 ![](menssages.png)
