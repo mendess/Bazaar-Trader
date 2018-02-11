@@ -51,7 +51,7 @@
 
 <div class="container">
 @foreach ($cards as $card)
-    @include('includes.card')
+    @include('includes.card', ['uri' => '/selling'])
 @endforeach
 
 
