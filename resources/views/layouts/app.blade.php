@@ -21,7 +21,7 @@
         <nav class="navbar navbar-inverse navbar-static-top ">
             <div class="container">
                 @include('includes.navbar')
-                
+
             </div>
         </nav>
 
@@ -33,6 +33,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+<!--   <script src="{{ asset('js/app.js') }}"></script> -->
 </body>
 </html>
