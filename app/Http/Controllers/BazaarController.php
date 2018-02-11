@@ -34,6 +34,9 @@ class BazaarController extends Controller
             ->wherePivot('intent','want')
             ->select('id')
             ->getBaseQuery();
+        
+        $ourLat = Auth::user()->lat;
+        $ourLng = Auth::user()->lng;
 
         $usersHave = CardUser::with('user')
             ->where('intent','sell')
@@ -43,8 +46,8 @@ class BazaarController extends Controller
                 return $offer->user;
             })
             ->unique()
-            ->filter(function($user) use($distance){
-                return $user->areYouCloseEnough($distance);
+            ->filter(function($user) use($distance,$ourLat,$ourLng){
+                return $user->areYouCloseEnough($distance,$ourLat,$ourLng);
             });
         
         $myBinder = Auth::user()->cards()

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use mtgsdk\Card;
+
 use App\CardUser;
 use Redirect;
 use Validator;
@@ -19,6 +21,9 @@ class WantsController extends Controller
     public function index()
     {
         $cards = Auth::user()->cards()->where('intent', 'want')->get();
+        $cards->each(function ($card){
+            $card['imageName'] = Card::find($card->id)->imageUrl;
+        });
         return view('wishlist', compact('cards'));
     }
 
