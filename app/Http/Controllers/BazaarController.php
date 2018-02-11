@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use Auth;
+use App\CardUser;
 use Illuminate\Support\Facades\DB;
+use Auth;
+
+//algolio
+        //
+
 
 class BazaarController extends Controller
 {
@@ -16,29 +21,37 @@ class BazaarController extends Controller
      */
     public function index()
     {
-        $ourUserId = Auth::user()->id;
-        $usersHave = DB::table('users')
-                        ->join('card_user','users.id','card_user.user_id')
-                        ->whereIn('card_user.card_id',(DB::table('card_user')
-                                                        ->where([
-                                                            ['card_user.user_id','=',$ourUserId],
-                                                            ['card_user.intent','=','sells']
-                                                        ]
-                                                        )
-                                                        ->select('card_id')->get()))
-                        ->select('users.id as id','users.name as name')
-                        ->get();
-        $usersWant = DB::table('users')
-                        ->join('card_user','users.id','card_user.user_id')
-                        ->whereIn('card_user.card_id',(DB::table('card_user')
-                                                        ->where([
-                                                            ['card_user.user_id','=',$ourUserId],
-                                                            ['card_user.intent','=','sells']
-                                                        ]
-                                                        )
-                                                        ->select('card_id')->get()))
-                        ->select('users.id as id','users.name as name')
-                        ->get();
+        
+
+        $myWants = Auth::user()->cards()
+            ->wherePivot('intent','want')
+            ->select('id')
+            ->getBaseQuery();
+
+        $usersHave = CardUser::with('user')
+            ->where('intent','sell')
+            ->whereIn('card_id',$myWants)
+            ->get()
+            ->map(function ($offer){
+                return $offer->user;
+            })
+            ->unique();
+        
+        $myBinder = Auth::user()->cards()
+            ->wherePivot('intent','sell')
+            ->select('id')
+            ->getBaseQuery();
+        
+        $usersWant = CardUser::with('user')
+            ->where('intent','want')
+            ->whereIn('card_id',$myBinder)
+            ->get()
+            ->map(function ($offer){
+                return $offer->user;
+            })
+            ->unique();
+
+        
         return view('bazaar',compact('usersHave','usersWant'));
     }
 
