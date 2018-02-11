@@ -114,9 +114,9 @@ class SellsController extends Controller
     public function destroy($id)
     {
         //
-        $pivotEnt = Auth::user()->cards()->where(['intent' => 'sell', 'card_id' => $id])->get();
+        $pivotEnt = Auth::user()->cards()->where(['intent' => 'sell', 'card_id' => $id])->get()->first();
         $pivotEnt->delete();
 
-        return redirect('/sell');
+        return redirect('/selling');
     }
 }
