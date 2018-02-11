@@ -19,10 +19,13 @@ class BazaarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $distance = 5;
+        if($request->isMethod('post')){
+            $distance = $request->input('km');
+        }
         
-
         $myWants = Auth::user()->cards()
             ->wherePivot('intent','want')
             ->select('id')
@@ -52,7 +55,7 @@ class BazaarController extends Controller
             ->unique();
 
         
-        return view('bazaar',compact('usersHave','usersWant'));
+        return view('bazaar',compact('usersHave','usersWant','distance'));
     }
 
     /**

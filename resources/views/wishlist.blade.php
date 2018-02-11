@@ -25,7 +25,7 @@
             <label for="name" class="col-md-4 control-label">Number of Copies</label>
 
             <div class="col-md-6">
-                <input id="copies" type="number" class="form-control" name="copies" value="{{ old('copies') }}" required> <!--ITS GOING DOWN -->
+                <input id="copies" type="number" min="0" class="form-control" name="copies" value="{{ old('copies') }}" required> <!--ITS GOING DOWN -->
 
                 @if ($errors->has('name'))
                     <span class="help-block">

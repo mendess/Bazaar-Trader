@@ -3,14 +3,14 @@
 
 @section('content')
 <div class="panel-body">
-    <form class="form-horizontal" method="POST" action="#">
+    <form class="form-horizontal" method="POST" action="/bazaar">
         {{ csrf_field() }}
 
         <div class="form-group{{ $errors->has('km') ? ' has-error' : '' }}">
             <label for="km" class="col-md-4 control-label">Km Range</label>
 
             <div class="col-md-6">
-                <input id="km" type="text" class="form-control" name="km" value="{{ old('km') }}" required autofocus>
+                <input id="km" type="number" min="0" class="form-control" name="km" value="{{ old('km') }}" required autofocus>
 
                 @if ($errors->has('name'))
                     <span class="help-block">
@@ -23,14 +23,13 @@
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <button type="submit" class="btn btn-primary">
-                    Add Range
+                    Set Range
                 </button>
             </div>
         </div>
 
     </form>
 </div>
-
 
 <div class="container" >
     <div class="row">
