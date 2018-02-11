@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use mtgsdk\Card; 
+use mtgsdk\Card;
 
 use App\CardUser;
 use Redirect;

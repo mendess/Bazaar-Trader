@@ -9,7 +9,8 @@
                     </button>
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img style="max-height: 200%; height: 150%; margin: 0;" src="/img/logo.png">
+                        <!--img style="max-height: 200%; height: 150%; margin: 0;" src="/img/logo.png"-->
+                        <p>MTG Trader</p>
                     </a>
                 </div>
 

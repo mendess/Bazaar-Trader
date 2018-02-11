@@ -17,7 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password', 'lat', 'lng',
-        'street', 'streetnumber', 'city', 'zip', 'country'
+        'street', 'streetnumber', 'city', 'zip', 'country', 'phone_number'
     ];
 
     /**
@@ -33,10 +33,28 @@ class User extends Authenticatable
       return $this->belongsToMany('\App\Card', 'card_user')->using('App\CardUser')->withPivot('copies');
     }
 
-    public function areYouCloseEnough(int $distance)
-    {
-        $lat = $this->lat;
-        $lng = $this->lng;
-        return $distance > 3956*2*asin(sqrt(pow(sin((19.286558 - $lat)*pi()/180/2),2)+cos(19.286558 * pi()/180)*cos($lng * pi()/180)*pow(sin((-99.612494 - $lng)* pi()/180/2),2)));
+
+    public function myDistance($lat2, $lon2) {
+
+        $lat1 = $this->lat;
+        $lon1 = $this->lng;
+
+
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+      
+        return ($miles * 1.609344);
+        
+      }
+
+    public function areYouCloseEnough(int $distance,float $theirLat,float $theirLng)
+    {     
+        return $distance > $this->myDistance($theirLat, $theirLng);
     }
+
+    
+
 }
