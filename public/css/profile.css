@@ -47,3 +47,14 @@
   margin-left: 15cm;
 }
 
+#wanted, #selling{
+  display: inline-block;
+  border: 5px solid rgb(233, 205, 205);
+  background: #062227;
+  width: 400px;
+  height: 600px;
+  padding: 25px;
+  margin: 25px;
+  font-size: 20px;
+  margin-left: 100px;
+}
