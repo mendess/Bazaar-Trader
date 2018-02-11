@@ -28,7 +28,7 @@
                         @else
                             <li><a href="/messages">Messages</a></li>
                             <li><a href="/wishlist">Wishlist</a></li>
-                            <li><a href="/selling">Trade</a></li>
+                            <li><a href="/selling">Offering</a></li>
                             <li><a href="/bazaar">Bazaar</a></li>
 
 

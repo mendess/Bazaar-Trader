@@ -2,11 +2,13 @@
 
 
 @section('content')
+<body background="/img/offback.jpg"/>
+
 <div class="panel-body">
     <form class="form-horizontal" method="POST" action="/bazaar">
         {{ csrf_field() }}
 
-        <div class="form-group{{ $errors->has('km') ? ' has-error' : '' }}">
+        <div id="km" class="form-group{{ $errors->has('km') ? ' has-error' : '' }}">
             <label for="km" class="col-md-4 control-label">Km Range</label>
 
             <div class="col-md-6">

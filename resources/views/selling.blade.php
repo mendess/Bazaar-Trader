@@ -3,13 +3,13 @@
 
 @section('content')
 
-
+<body background="/img/offback2.jpg"/>
 
 <div class="panel-body">
     <form class="form-horizontal" method="POST" action="{{ route('add_sell_card') }}">
         {{ csrf_field() }}
 
-        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+        <div id="card1" class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label for="name" class="col-md-4 control-label">Card</label>
 
             <div class="col-md-6">
@@ -22,7 +22,7 @@
                 @endif
             </div>
         </div>
-        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+        <div id="number1" class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label for="name" class="col-md-4 control-label">Number of Copies</label>
 
             <div class="col-md-6">
