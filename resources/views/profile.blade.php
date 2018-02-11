@@ -23,7 +23,7 @@
 
 	@if( $user->email !== Auth::user()->email )
 	<div class="float">
-	<h2>Wishlist:</h2>
+	<h2 class="special">Wishlist:</h2>
 		@foreach ($wants as $card)
 		<div class="card">
 			<li>Name: <span class="label label-default">{{$card->name}}</span></li>
@@ -36,7 +36,7 @@
 
 	@if( $user->email !== Auth::user()->email )
 	<div class="float">
-	<h2>Offering:</h2>
+	<h2 class="special">Offering:</h2>
 		@foreach ($haves as $card)
 		<div class="card">
 			<li>Name: <span class="label label-default">{{$card->name}}</span></li>
