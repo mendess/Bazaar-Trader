@@ -2,6 +2,8 @@
 
 
 @section('content')
+<body background="/img/offback.jpg"/>
+
 <div class="panel-body">
     <form class="form-horizontal" method="POST" action="/bazaar">
         {{ csrf_field() }}

@@ -3,7 +3,7 @@
 
 @section('content')
 
-<body background="/img/offback.jpg"/>
+<body background="/img/offback2.jpg"/>
 
 <div class="panel-body">
     <form class="form-horizontal" method="POST" action="{{ route('add_sell_card') }}">
