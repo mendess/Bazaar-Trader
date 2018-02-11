@@ -10,7 +10,8 @@
         <p>{{ $user->name }}</p>
         <p>{{ $user->email }}</p>
         <p>{{ $user->address }}</p>
-        <p>{{ $user->city}}, {{ $user->country }}</p>
+		<p>{{ $user->city}}, {{ $user->country }}</p>
+		<p>{{ $user->phone_number }}</p>
 
         @if( $user->email !== Auth::user()->email )
           <a id="button_pm" href="/messages/create" style="color: black;" class="btn btn-info" color="black" role="button">PM Me!</a>
