@@ -2,9 +2,6 @@
 
 
 @section('content')
-<head>
-  <link href="/css/profile.css" rel="stylesheet">
-</head>
 
 <body background="/img/fundo.jpg">
     <div id="sidebar">
