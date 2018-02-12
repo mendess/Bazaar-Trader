@@ -52,11 +52,11 @@ class UsersController extends Controller
         if($user == null)
             return view('user_not_found');
         
-        $haves = $user->cards()->wherePivot('intent','sell')->get();
+        $haves = $user->cards()->wherePivot('intent','S')->get();
         $haves->each(function ($card){
             $card['imageName'] = Card::find($card->id)->imageUrl;
         });
-        $wants = $user->cards()->wherePivot('intent','want')->get();
+        $wants = $user->cards()->wherePivot('intent','W')->get();
         $wants->each(function ($card){
             $card['imageName'] = Card::find($card->id)->imageUrl;
         });

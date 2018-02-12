@@ -20,7 +20,7 @@ class SellsController extends Controller
      */
     public function index()
     {
-        $cards = Auth::user()->cards()->where('intent', 'sell')->get();
+        $cards = Auth::user()->cards()->where('intent', 'S')->get();
         $cards->each(function ($card){
           $card['imageName'] = Card::find($card->id)->imageUrl;
         });
@@ -62,14 +62,14 @@ class SellsController extends Controller
             return redirect('/selling');
         }
 
-        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'sell'])->get();
+        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'S'])->get();
         if($actual->first() != null) {;
             $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
         }else{
             $registo = new CardUser;
             $registo->user_id = $user->id;
             $registo->card_id = $result->id;
-            $registo->intent = 'sell';
+            $registo->intent = 'S';
             $registo->copies = request('copies');
 
             $registo->save();
@@ -122,7 +122,7 @@ class SellsController extends Controller
     public function destroy($id)
     {
         //
-        $pivotEnt = Auth::user()->cards()->where(['intent' => 'sell', 'card_id' => $id])->get()->first();
+        $pivotEnt = Auth::user()->cards()->where(['intent' => 'S', 'card_id' => $id])->get()->first();
         $pivotEnt->delete();
 
         return redirect('/selling');

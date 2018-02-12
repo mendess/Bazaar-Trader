@@ -10,7 +10,6 @@ use App\CardUser;
 use Redirect;
 use Validator;
 use Auth;
-use App\Card as MyCard;
 
 class WantsController extends Controller
 {
@@ -21,14 +20,11 @@ class WantsController extends Controller
      */
     public function index()
     {
-        $cards = Auth::user()->cards()->where('intent', 'want')->get();
+        $cards = Auth::user()->cards()->where('intent', 'W')->get();
         $cards->each(function ($card){
             $card['imageName'] = Card::find($card->id)->imageUrl;
         });
-
-        $allcards = MyCard::all();
-
-        return view('wishlist', compact('cards','allcards'));
+        return view('wishlist', compact('cards'));
     }
 
     /**
@@ -49,6 +45,7 @@ class WantsController extends Controller
      */
     public function store(Request $request)
     {
+        //TODO Make this insert update
         $user = Auth::user();
 
         $data = $request->validate([
@@ -63,18 +60,18 @@ class WantsController extends Controller
             return redirect('/wishlist');
         }
 
-        $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'want'])->get();
-        if($actual->first() != null) {;
-            $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
-        }else{
-            $registo = new CardUser;
-            $registo->user_id = $user->id;
-            $registo->card_id = $result->id;
-            $registo->intent = 'want';
-            $registo->copies = request('copies');
+        // $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'W'])->get();
+        // if($actual->first() != null) {;
+        //     $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
+        // }else{
+        $registo = new CardUser;
+        $registo->user_id = $user->id;
+        $registo->card_id = $result->id;
+        $registo->intent = 'W';
+        $registo->copies = request('copies');
 
-            $registo->save();
-        }
+        $registo->save();
+        // }
         return redirect('/wishlist');
     }
 
@@ -134,7 +131,7 @@ class WantsController extends Controller
      */
     public function destroy($id)
     {
-        $pivotEnt = Auth::user()->cards()->where(['intent' => 'want', 'card_id' => $id])->get()->first();
+        $pivotEnt = Auth::user()->cards()->where(['intent' => 'W', 'card_id' => $id])->get()->first();
         $pivotEnt->delete();
 
         return redirect('/wishlist');
