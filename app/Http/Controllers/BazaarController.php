@@ -136,3 +136,22 @@ class BazaarController extends Controller
         //
     }
 }
+
+
+/*
+SQL query to get relevant users
+
+SELECT users.id AS id, users.name AS name FROM users
+    INNER JOIN card_user ON users.id = card_user.user_id
+    WHERE card_user.intent = "want"
+      AND card_user.card_id IN (SELECT card_id FROM card_user 
+                            WHERE card_user.user_id = 1 
+                              AND card_user.intent = "sells")
+
+SELECT users.id AS id, users.name AS name FROM users
+    INNER JOIN card_user ON users.id = card_user.user_id
+    WHERE card_user.intent = "sell"
+      AND card_user.card_id IN (SELECT card_id FROM card_user 
+                            WHERE card_user.user_id = 1 
+                              AND card_user.intent = "wants");
+*/

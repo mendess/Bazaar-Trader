@@ -105,17 +105,17 @@ class MessagesController extends Controller
             $thread->addParticipant($input['recipients']);
         }
 
-        $basic  = new \Nexmo\Client\Credentials\Basic('47f74c1c', 'ee2731b47d7d7be5');
-        $client = new \Nexmo\Client($basic);
+        // $basic  = new \Nexmo\Client\Credentials\Basic('47f74c1c', '-- NEEDS TO READ FROM FILE');
+        // $client = new \Nexmo\Client($basic);
 
-        $user = User::find($input['recipients'][0]);
+        // $user = User::find($input['recipients'][0]);
 
 
-        $message = $client->message()->send([
-            'to' => $user->phone_number,
-            'from' => Auth::user()->phone_number,
-            'text' => $input['message'],
-        ]);
+        // $message = $client->message()->send([
+        //     'to' => $user->phone_number,
+        //     'from' => Auth::user()->phone_number,
+        //     'text' => $input['message'],
+        // ]);
         
 
 

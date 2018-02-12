@@ -2,6 +2,19 @@
 
 ![](bazaar-trader-art.jpeg)
 
+### Team details
+
+ * Team name: **Magic Team**
+ * Team members:
+
+|   Name          |    Email                  |
+|-----------------|---------------------------|
+| Pedro Mendes    | pedro.mendes.26@gmail.com |
+| Filipe Monteiro | pimonteiro@protonmail.com |
+| Eduardo Jorge   | herulume@protonmail.com   |
+| Marcio Sousa    | marcio.sousa98@hotmail.com|
+
+
 ### Project Description
 
 The project is based on a simple but powerfull idea. Making trading cards about **Trading Cards** again.
