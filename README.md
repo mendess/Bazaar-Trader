@@ -1,6 +1,6 @@
 # Bazaar Trader
 
-![header](pitch/bazaar-trader-art.jpeg)
+![header](pitch/bazaar-trader-art_cropped.jpeg)
 
 ### Project Description
 
