@@ -8,7 +8,6 @@ use Redirect;
 use Validator;
 use Illuminate\Http\Request;
 use Auth;
-use App\Card as MyCard;
 
 
 class SellsController extends Controller
@@ -25,9 +24,7 @@ class SellsController extends Controller
           $card['imageName'] = Card::find($card->id)->imageUrl;
         });
 
-        $allcards = MyCard::all();
-
-        return view('selling', compact('cards','allcards'));
+        return view('selling', compact('cards'));
     }
 
     /**
@@ -55,17 +52,16 @@ class SellsController extends Controller
             'name' => 'required'
             ]);
 
-        $result = \App\Card::where('name',$data['name'])->get()->first(); //CHECK
+        $result = Card::where('name',$data['name'])->get()->first(); //CHECK
         if($result == null){
-            dd($result,$data['name']);
             $message = "Invalid Card";
             return redirect('/selling');
         }
 
         $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'S'])->get();
-        if($actual->first() != null) {;
-            $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
-        }else{
+        // if($actual->first() != null) {;
+        //     $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
+        // }else{
             $registo = new CardUser;
             $registo->user_id = $user->id;
             $registo->card_id = $result->id;
@@ -73,7 +69,7 @@ class SellsController extends Controller
             $registo->copies = request('copies');
 
             $registo->save();
-        }
+        // }
         return redirect('/selling');
     }
 

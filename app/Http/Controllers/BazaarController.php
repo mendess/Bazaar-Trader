@@ -31,15 +31,15 @@ class BazaarController extends Controller
         }
         
         $myWants = Auth::user()->cards()
-            ->wherePivot('intent','W')
-            ->select('id')
+            ->whereIntent('W')
+            ->select('card_id')
             ->getBaseQuery();
         
         $ourLat = Auth::user()->lat;
         $ourLng = Auth::user()->lng;
 
         $usersHave = CardUser::with('user')
-            ->where('intent','S')
+            ->whereIntent('S')
             ->whereIn('card_id',$myWants)
             ->get()
             ->map(function ($offer){
@@ -51,12 +51,12 @@ class BazaarController extends Controller
             });
         
         $myBinder = Auth::user()->cards()
-            ->wherePivot('intent','S')
-            ->select('id')
+            ->whereIntent('S')
+            ->select('card_id')
             ->getBaseQuery();
         
         $usersWant = CardUser::with('user')
-            ->where('intent','W')
+            ->whereIntent('W')
             ->whereIn('card_id',$myBinder)
             ->get()
             ->map(function ($offer){

@@ -2,15 +2,23 @@
 <div class="card">
     <li>Name: <span class="label label-default">{{$card->name}}</span></li>
     <a href="{{ $card->imageName }}"><img class="card-img"  src="{{ $card->imageName }}"/></a>
+    @if(isset($button) && $button)
     <form action = "{{ $uri }}/del_card/{{ $card->id }}" method = "post">
         {{ csrf_field() }}
         <input style="background-color:#cb0000; color:rgb(255, 255, 255);" type="submit" name="upvote" value="Remove"/>
     </form>
-    <p>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></p>
+    @endif
+    @if(isset($chooseCard) && $chooseCard)
+    <form action = "{{ $uri }}/cardChosen/{{ $card->id }}" method = "post">
+        {{ csrf_field() }}
+        <input style="background-color:#cb0000; color:rgb(255, 255, 255);" type="submit" name="upvote" value="Choose"/>
+    </form>
+    @endif
+    <p>Wanted: <span class="label label-default">{{$card->copies}}</span></p>
 </div>
 
 <!-- <div class="card-text">
-        <li>Wanted: <span class="label label-default">{{$card->pivot->copies}}</span></li>
+        <li>Wanted: <span class="label label-default">{{$card->copies}}</span></li>
         <li>Type: {{$card->type}}</li>
         <li>Mana Cost: <span class="label label-default">{{$card->manaCost}}</span></li>
         <li>Cmc: {{$card->cmc}}</li>

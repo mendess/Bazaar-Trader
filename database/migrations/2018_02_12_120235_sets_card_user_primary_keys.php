@@ -14,9 +14,7 @@ class SetsCardUserPrimaryKeys extends Migration
     public function up()
     {
         Schema::table('card_user', function (Blueprint $table) {
-            $table->primary('user_id')->change();
-            $table->primary('card_id')->change();
-            $table->primary('intent')->change();
+            $table->primary(['user_id','card_id','intent'])->change();
         });
     }
 
@@ -28,9 +26,7 @@ class SetsCardUserPrimaryKeys extends Migration
     public function down()
     {
         Schema::table('card_user', function (Blueprint $table) {
-            $table->dropPrimary('card_id');
-            $table->dropPrimary('user_id');
-            $table->dropPrimary('intent');
+            $table->dropPrimary(['card_id','user_id','intent']);
         });
     }
 }

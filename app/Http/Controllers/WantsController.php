@@ -20,11 +20,11 @@ class WantsController extends Controller
      */
     public function index()
     {
-        $cards = Auth::user()->cards()->where('intent', 'W')->get();
+        $cards = Auth::user()->cards()->whereIntent('W')->select('card_id')->get();
         $cards->each(function ($card){
-            $card['imageName'] = Card::find($card->id)->imageUrl;
+            $card['imageName'] = Card::find($card->card_id)->imageUrl;
         });
-        return view('wishlist', compact('cards'));
+        return view('lists.wishlist.index', compact('cards'));
     }
 
     /**
@@ -45,7 +45,6 @@ class WantsController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO Make this insert update
         $user = Auth::user();
 
         $data = $request->validate([
@@ -53,41 +52,20 @@ class WantsController extends Controller
             'name' => 'required'
             ]);
 
-        $result = \App\Card::where('name',$data['name'])->get()->first(); //CHECK
-        if($result == null){
-            dd($result,$data['name']);
+        $result = Card::where(['name' => $data['name']])->all(); //CHECK
+        if(count($result) == 0){
             $message = "Invalid Card";
-            return redirect('/wishlist');
+            return redirect()->route('wishlist.index');
+        }elseif(count($result) > 1){
+            return view('lists.chooseCard', compact('results'));
+        }else{
+            CardUser::updateOrCreate(['user_id' => $user->id],
+                                     ['card_id' => $result[0]->multiverseid],
+                                     ['intent' => 'W'],
+                                     ['copies' => request('copies')]);
+            return redirect()->route('wishlist.index');            
         }
-
-        // $actual = $user->cards()->where(['name' => $data['name'], 'intent' => 'W'])->get();
-        // if($actual->first() != null) {;
-        //     $user->cards()->updateExistingPivot($result->id,['copies' => $request->copies]);
-        // }else{
-        $registo = new CardUser;
-        $registo->user_id = $user->id;
-        $registo->card_id = $result->id;
-        $registo->intent = 'W';
-        $registo->copies = request('copies');
-
-        $registo->save();
-        // }
-        return redirect('/wishlist');
     }
-
-
-      /* $validator = Validator::make($request->all(),[
-        'intent' => 'required',
-        'copies' => 'required',
-        'name' => 'required'
-      ]);
-
-      if($validator->fails()){
-        return redirect('/')->withErrors($validator);
-      } */
-
-
-
 
     /**
      * Display the specified resource.
@@ -134,7 +112,7 @@ class WantsController extends Controller
         $pivotEnt = Auth::user()->cards()->where(['intent' => 'W', 'card_id' => $id])->get()->first();
         $pivotEnt->delete();
 
-        return redirect('/wishlist');
+        return redirect()->route('wishlist.index');
 
     }
 }

@@ -28,7 +28,7 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li><a href="/messages">Messages</a></li>
-                            <li><a href="/wishlist">Wishlist</a></li>
+                            <li><a href={{ route('wishlist.index') }}>Wishlist</a></li>
                             <li><a href="/selling">Offering</a></li>
                             <li><a href="/bazaar">Bazaar</a></li>
 
