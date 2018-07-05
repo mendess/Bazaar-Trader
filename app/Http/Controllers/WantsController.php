@@ -59,10 +59,11 @@ class WantsController extends Controller
         }elseif(count($result) > 1){
             return view('lists.chooseCard', compact('results'));
         }else{
-            CardUser::updateOrCreate(['user_id' => $user->id],
-                                     ['card_id' => $result[0]->multiverseid],
-                                     ['intent' => 'W'],
-                                     ['copies' => request('copies')]);
+            CardUser::updateOrCreate(
+                ['user_id' => $user->id],
+                ['card_id' => $result[0]->multiverseid],
+                ['intent' => 'W'],
+                ['copies' => request('copies')]);
             return redirect()->route('wishlist.index');            
         }
     }

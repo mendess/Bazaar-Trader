@@ -54,7 +54,7 @@ class SellsController extends Controller
 
         $result = Card::where('name',$data['name'])->get()->first(); //CHECK
         if($result == null){
-            $message = "Invalid Card";
+        $message = "Invalid Card";
             return redirect('/selling');
         }
 
